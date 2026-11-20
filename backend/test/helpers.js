@@ -52,6 +52,17 @@ function escenarioBasico(db, { clasificacion = 'ATP', duracionMin = 120, inicioM
   return { salaId, peliculaId, funcionId, inicioMs };
 }
 
+let contadorCodigos = 0;
+/** Deja una butaca vendida (entrada válida) directamente en la base. */
+function ocuparButaca(db, funcionId, butaca, usuarioId) {
+  const compraId = Number(db.prepare(
+    "INSERT INTO compras (usuario_id, funcion_id, total, tarjeta_ultimos4, creada_ms) VALUES (?, ?, 8000, '1111', 1)",
+  ).run(usuarioId, funcionId).lastInsertRowid);
+  contadorCodigos += 1;
+  db.prepare("INSERT INTO entradas (compra_id, funcion_id, butaca, tipo, precio, codigo) VALUES (?, ?, ?, 'general', 8000, ?)")
+    .run(compraId, funcionId, butaca, `CA-T${String(contadorCodigos).padStart(7, '0')}`);
+}
+
 /** Predicado para assert.throws: error de negocio con ese código (y opcionalmente ese status). */
 const esError = (codigo, status) => (e) => {
   assert.equal(e.codigo, codigo, `se esperaba el error ${codigo} pero fue ${e.codigo ?? e.message}`);
@@ -61,5 +72,5 @@ const esError = (codigo, status) => (e) => {
 
 module.exports = {
   MIN, HORA, ar, AHORA, crearEntorno, datosUsuario, esError, inicioDiaAR,
-  nuevaSala, nuevaPelicula, nuevaFuncion, escenarioBasico,
+  nuevaSala, nuevaPelicula, nuevaFuncion, escenarioBasico, ocuparButaca,
 };

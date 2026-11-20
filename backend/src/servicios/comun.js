@@ -1,6 +1,6 @@
 'use strict';
 const { ErrorNegocio } = require('../errores');
-const { MIN, ventaAbierta } = require('../reglas');
+const { MIN, ventaAbierta, edadMinima, edadEn } = require('../reglas');
 
 const SELECT_FUNCION = `
   SELECT f.id, f.pelicula_id, f.sala_id, f.inicio_ms, f.formato, f.precio_base, f.estado,
@@ -61,5 +61,24 @@ module.exports = function comun({ db, ahora }) {
     return mapa;
   }
 
-  return { SELECT_FUNCION, mapFuncion, obtenerFuncion, limpiarReservasVencidas, butacasOcupadas, butacasReservadas };
+  /** RN9: la edad del usuario debe alcanzar la clasificación de la película. */
+  function exigirEdad(usuario, f) {
+    const minima = edadMinima(f.clasificacion);
+    if (edadEn(usuario.fecha_nac, ahora()) < minima) {
+      throw new ErrorNegocio('EDAD_INSUFICIENTE', `Esta película es ${f.clasificacion}: tenés que tener al menos ${minima} años.`, 403);
+    }
+  }
+
+  /** RN8: la venta online debe estar abierta y la función programada. */
+  function exigirVentaAbierta(f) {
+    if (f.estado !== 'programada') throw new ErrorNegocio('FUNCION_CANCELADA', 'La función fue cancelada.', 409);
+    if (!ventaAbierta(f.inicioMs, ahora())) {
+      throw new ErrorNegocio('VENTA_CERRADA', 'La venta online de esta función ya cerró (cierra 15 minutos antes del inicio).', 409);
+    }
+  }
+
+  return {
+    SELECT_FUNCION, mapFuncion, obtenerFuncion, limpiarReservasVencidas, butacasOcupadas, butacasReservadas,
+    exigirEdad, exigirVentaAbierta,
+  };
 };

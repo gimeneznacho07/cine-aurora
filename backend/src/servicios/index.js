@@ -2,6 +2,7 @@
 const comun = require('./comun');
 const usuarios = require('./usuarios');
 const catalogo = require('./catalogo');
+const reservas = require('./reservas');
 
 /** Compone todos los casos de uso con las mismas dependencias (base de datos, reloj y secreto). */
 function crearServicios({ db, ahora = Date.now, secreto }) {
@@ -11,6 +12,7 @@ function crearServicios({ db, ahora = Date.now, secreto }) {
   return {
     ...usuarios(ctx),
     ...catalogo(ctx),
+    ...reservas(ctx),
   };
 }
 
