@@ -1,7 +1,7 @@
 'use strict';
 const { ErrorNegocio } = require('../errores');
 const { transaccion } = require('../db');
-const { CONFIG, haySolapamiento, HORA } = require('../reglas');
+const { CONFIG, haySolapamiento, ventanaValidacion, HORA } = require('../reglas');
 
 const COLOR_RE = /^#[0-9a-fA-F]{6}$/;
 
@@ -118,5 +118,62 @@ module.exports = function admin({ db, ahora, c }) {
     });
   }
 
-  return { crearPelicula, listarPeliculasAdmin, listarSalas, crearFuncion, cancelarFuncion, desactivarPelicula };
+  /** HU13 / RN13: el personal valida el código en la puerta. La entrada pasa a "usada". */
+  function validarEntrada(codigo) {
+    const cod = String(codigo ?? '').trim().toUpperCase();
+    const e = cod && db.prepare('SELECT * FROM entradas WHERE codigo = ?').get(cod);
+    if (!e) throw new ErrorNegocio('ENTRADA_NO_ENCONTRADA', 'No existe ninguna entrada con ese código.', 404);
+    const f = c.obtenerFuncion(e.funcion_id);
+
+    if (e.estado === 'cancelada' || f.estado === 'cancelada') {
+      throw new ErrorNegocio('ENTRADA_ANULADA', 'La entrada fue cancelada: no es válida.', 410);
+    }
+    if (e.estado === 'usada') {
+      throw new ErrorNegocio('YA_USADA', 'Esta entrada ya fue usada. No puede ingresar de nuevo.', 409);
+    }
+    const { desdeMs, hastaMs } = ventanaValidacion(f.inicioMs, f.duracionMin);
+    if (ahora() < desdeMs || ahora() > hastaMs) {
+      throw new ErrorNegocio('FUERA_DE_HORARIO', 'La entrada es de otro horario: se acepta desde 60 minutos antes del inicio hasta que termina la función.', 422);
+    }
+    db.prepare("UPDATE entradas SET estado = 'usada', usada_ms = ? WHERE id = ? AND estado = 'valida'").run(ahora(), e.id);
+    return {
+      id: e.id, codigo: e.codigo, estado: 'usada', butaca: e.butaca, tipo: e.tipo,
+      pelicula: f.titulo, sala: f.sala, inicioMs: f.inicioMs, formato: f.formato,
+    };
+  }
+
+  /** HU14: ocupación y recaudación neta (ventas menos reembolsos) por función. */
+  function reporte() {
+    const filas = db.prepare(`
+      SELECT f.id, f.inicio_ms, f.estado, f.formato, p.titulo, s.nombre AS sala, s.filas * s.columnas AS capacidad,
+        COALESCE(SUM(CASE WHEN e.estado IN ('valida','usada') THEN 1 ELSE 0 END), 0) AS vendidas,
+        COALESCE(SUM(CASE WHEN e.estado = 'usada' THEN 1 ELSE 0 END), 0) AS usadas,
+        COALESCE(SUM(CASE WHEN e.estado = 'cancelada' THEN 1 ELSE 0 END), 0) AS canceladas,
+        COALESCE(SUM(e.precio - e.reembolso), 0) AS neta,
+        COALESCE(SUM(e.reembolso), 0) AS reembolsado
+      FROM funciones f
+      JOIN peliculas p ON p.id = f.pelicula_id
+      JOIN salas s ON s.id = f.sala_id
+      LEFT JOIN entradas e ON e.funcion_id = f.id
+      GROUP BY f.id
+      ORDER BY f.inicio_ms DESC`).all();
+
+    const funciones = filas.map((r) => ({
+      funcionId: r.id, titulo: r.titulo, sala: r.sala, formato: r.formato, inicioMs: r.inicio_ms, estado: r.estado,
+      capacidad: r.capacidad, vendidas: r.vendidas, usadas: r.usadas, canceladas: r.canceladas,
+      ocupacion: Math.round((r.vendidas / r.capacidad) * 10000) / 100,
+      recaudacionNeta: r.neta, reembolsado: r.reembolsado,
+    }));
+    const totales = funciones.reduce((t, f) => ({
+      entradasVendidas: t.entradasVendidas + f.vendidas,
+      recaudacionNeta: t.recaudacionNeta + f.recaudacionNeta,
+      reembolsado: t.reembolsado + f.reembolsado,
+    }), { entradasVendidas: 0, recaudacionNeta: 0, reembolsado: 0 });
+    return { funciones, totales };
+  }
+
+  return {
+    crearPelicula, listarPeliculasAdmin, listarSalas, crearFuncion, cancelarFuncion, desactivarPelicula,
+    validarEntrada, reporte,
+  };
 };
