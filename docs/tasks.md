@@ -22,4 +22,4 @@ Estados: `[ ]` pendiente · `[x]` hecha.
 | T12 | [x] | Frontend base: cartelera, película, cuentas | Frontend | Router, helpers, estilos, login/registro | HU1, HU2, HU4, HU5 | T11 | Se navega y se ingresa desde el navegador |
 | T13 | [x] | Frontend: butacas, pago y mis entradas | Frontend | Mapa, reserva con cuenta regresiva, pago, entradas, cancelar | HU3, HU6–HU9 | T12 | Se compra y se cancela de punta a punta |
 | T14 | [x] | Frontend: panel de administración | Frontend | Películas, funciones, validar, reporte | HU10–HU15 | T12 | Un admin puede hacer todo desde la web |
-| T15 | [ ] | README, informe y despliegue | Arquitecto | README con enlace público, informe de pruebas, guía de despliegue | — | T14 | Documentación completa |
+| T15 | [x] | README, informe y despliegue | Arquitecto | README con enlace público, informe de pruebas, guía de despliegue | — | T14 | Documentación completa |

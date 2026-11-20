@@ -107,7 +107,7 @@ a.horario:hover small { color: #d3cbe8; }
 .butaca { width: 34px; height: 32px; border-radius: 8px 8px 4px 4px; border: 2px solid var(--tinta); background: var(--libre); font: inherit; font-size: .72rem; font-weight: 600; color: var(--tinta); cursor: pointer; padding: 0; }
 .butaca.premium { border-color: var(--boleto); }
 .butaca:hover:not(:disabled) { background: #e9e2f6; }
-.butaca.elegida { background: var(--aurora); border-color: var(--aurora-osc); color: #fff; }
+.butaca.elegida, .butaca.elegida:hover:not(:disabled) { background: var(--aurora); border-color: var(--aurora-osc); color: #fff; }
 .butaca.mia { background: var(--aurora-osc); border-color: var(--aurora-osc); color: #fff; cursor: default; }
 .butaca.ocupada { background: #cfc8dc; border-color: #cfc8dc; color: #8b84a1; cursor: not-allowed; }
 .butaca.reservada { background: repeating-linear-gradient(45deg, #f6dca9, #f6dca9 4px, #fff 4px, #fff 8px); border-color: var(--ambar); color: #7a5410; cursor: not-allowed; }
@@ -164,6 +164,8 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
   .detalle { grid-template-columns: 1fr; }
   .mapa-y-panel, .dos-paneles { grid-template-columns: 1fr; }
   .panel { position: static; }
-  .butaca { width: 30px; height: 30px; }
+  .mapa, .fila-mapa { gap: 4px; }
+  .butaca { width: 26px; height: 28px; font-size: .65rem; }
+  .letra { width: 18px; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
