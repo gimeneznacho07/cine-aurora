@@ -117,5 +117,24 @@ module.exports = function compras({ db, ahora, c }) {
     return lista.sort((a, b) => a.funcion.inicioMs - b.funcion.inicioMs || a.butaca.localeCompare(b.butaca, 'es', { numeric: true }));
   }
 
-  return { comprar, misEntradas };
+  /** HU9 / RN10: cancela UNA entrada con reembolso según la anticipación. La butaca queda libre (RN1). */
+  function cancelarEntrada(usuario, entradaId) {
+    const e = db.prepare(`
+      SELECT e.*, c.usuario_id FROM entradas e JOIN compras c ON c.id = e.compra_id WHERE e.id = ?`).get(Number(entradaId));
+    if (!e || e.usuario_id !== usuario.id) throw new ErrorNegocio('ENTRADA_NO_ENCONTRADA', 'La entrada no existe.', 404);
+    if (e.estado !== 'valida') {
+      const motivo = e.estado === 'usada' ? 'ya fue usada en la puerta' : 'ya está cancelada';
+      throw new ErrorNegocio('ENTRADA_NO_VALIDA', `No se puede cancelar: la entrada ${motivo}.`, 409);
+    }
+    const f = c.obtenerFuncion(e.funcion_id);
+    const r = calcularReembolso({ montoPagado: e.precio, inicioMs: f.inicioMs, ahoraMs: ahora() });
+    if (!r.permitido) {
+      throw new ErrorNegocio('FUERA_DE_PLAZO', 'Ya no se puede cancelar: faltan menos de 2 horas para la función.', 422);
+    }
+    db.prepare("UPDATE entradas SET estado = 'cancelada', reembolso = ?, cancelada_ms = ? WHERE id = ? AND estado = 'valida'")
+      .run(r.monto, ahora(), e.id);
+    return { id: e.id, estado: 'cancelada', porcentaje: r.porcentaje, reembolso: r.monto };
+  }
+
+  return { comprar, misEntradas, cancelarEntrada };
 };
