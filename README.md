@@ -4,7 +4,7 @@ Web para **comprar entradas de cine eligiendo la butaca**. Incluye cartelera, ma
 pago simulado, entradas con código, cancelaciones con reembolso y un panel de administración (películas, funciones,
 validación en puerta y reporte de ventas).
 
-> **Enlace público de la aplicación:** `COMPLETAR_DESPUÉS_DE_PUBLICAR` — ver [`docs/despliegue.md`](docs/despliegue.md).
+> **Enlace público de la aplicación:** `https://cine-aurora.onrender.com/#/ — ver [`docs/despliegue.md`](docs/despliegue.md).
 
 ## Qué tiene de especial (reglas de negocio)
 
@@ -21,13 +21,6 @@ No es un ABM: tiene 16 reglas de negocio numeradas (RN1–RN16) en [`docs/spec.m
 
 Requisitos: **Node.js 22.9 o superior**. No hay dependencias que instalar.
 
-```bash
-cp .env.example .env      # completá TOKEN_SECRET, INITIAL_ADMIN_EMAIL e INITIAL_ADMIN_PASSWORD
-npm start                 # abre http://localhost:3000
-npm test                  # 132 tests
-```
-
-Generar un `TOKEN_SECRET`: `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`
 
 Al arrancar, el servidor crea el administrador inicial y carga una cartelera de demostración (6 películas ficticias,
 3 salas, funciones para los próximos 7 días).
@@ -61,7 +54,5 @@ AGENTS.md  .cursor/rules/  reglamento del proyecto y reglas de cada agente
 | [`docs/despliegue.md`](docs/despliegue.md) | Cómo publicarlo en internet |
 
 ## Usuarios de prueba
-
-- **Administrador:** el que definas en `INITIAL_ADMIN_EMAIL` / `INITIAL_ADMIN_PASSWORD`.
 - **Cliente:** registrá una cuenta desde la web.
 - **Tarjetas de prueba:** `4111 1111 1111 1111` (aprobada) y `4000 0000 0000 0002` (rechazada). Vencimiento futuro y CVV de 3 dígitos.
