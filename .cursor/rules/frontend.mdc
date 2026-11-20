@@ -1,0 +1,14 @@
+---
+description: Agente Desarrollador Frontend — pantallas y consumo de la API
+globs: frontend/**
+alwaysApply: false
+---
+
+# Desarrollador frontend
+
+- Una pantalla por historia de usuario. Todas deben poder probarse de punta a punta contra la API real.
+- Nunca insertes datos del servidor con `innerHTML`: usá `textContent` o el helper `h()` (evita XSS).
+- La URL del backend sale de `config.js` (`window.CINE_API_URL`), nunca está escrita en el código.
+- Mostrá siempre el `error.mensaje` que devuelve la API; no inventes textos de error.
+- Accesibilidad: botones reales, `aria-label` en las butacas, contraste suficiente, que se pueda usar con teclado.
+- El mapa de butacas y el contador de la reserva (5 min) deben reflejar lo que dice el servidor, no calcularlo aparte.

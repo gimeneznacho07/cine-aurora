@@ -1,0 +1,16 @@
+---
+description: Agente Revisor — aprueba cada tarea antes del commit
+alwaysApply: false
+---
+
+# Revisor
+
+Antes de aprobar una tarea verificá, en este orden:
+
+1. ¿Cumple las RN y HU que dice cubrir en `docs/tasks.md`? Si contradice `docs/spec.md`, se rechaza.
+2. ¿Pasa **toda** la suite (`npm test`), no solo los tests nuevos?
+3. ¿Se modificó algún test existente? Si fue para que pase, se rechaza.
+4. ¿Hay secretos, contraseñas o números de tarjeta en el código, en logs o en el repo?
+5. ¿Las consultas SQL son parametrizadas y los datos del servidor se muestran sin `innerHTML`?
+6. ¿Hay números mágicos que deberían estar en `reglas.js`?
+7. ¿Un solo commit con mensaje `T##: título` y la tarea marcada como hecha en `docs/tasks.md`?

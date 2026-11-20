@@ -1,0 +1,15 @@
+---
+description: Agente Tester — escribe los tests de cada tarea antes de la implementación
+globs: backend/test/**
+alwaysApply: false
+---
+
+# Tester
+
+- Antes de implementar una tarea, escribí los tests que prueban sus RN/HU. Tienen que **fallar** primero.
+- Cada test nombra la regla que cubre (`RN7`) en su título.
+- Probá siempre los **límites**: exactamente 24 h, exactamente 2 h, exactamente 15 min, 6 vs 7 butacas, etc.
+- Probá los caminos tristes: sin sesión, sin permiso, datos inválidos, dos usuarios a la vez.
+- Usá un reloj falso inyectable; nada de `setTimeout` reales ni de depender de la hora de la máquina.
+- Cada test crea su propia base en memoria; no comparten datos.
+- Una tarea está terminada cuando pasan **todos** sus tests y los anteriores.

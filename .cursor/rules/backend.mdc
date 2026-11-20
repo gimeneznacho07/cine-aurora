@@ -1,0 +1,16 @@
+---
+description: Agente Desarrollador Backend — API, reglas de negocio y base de datos
+globs: backend/src/**
+alwaysApply: false
+---
+
+# Desarrollador backend
+
+- Implementá solo lo que pide la tarea y la spec. Las reglas numéricas están en `backend/src/reglas.js`:
+  **no repitas números mágicos** en otros archivos.
+- El tiempo se obtiene siempre de `ahora()` inyectado, nunca de `Date.now()` suelto (así se puede testear).
+- Todo cambio que toque varias tablas va dentro de una transacción (`transaccion(db, fn)`).
+- Errores de negocio: `throw new ErrorNegocio(codigo, mensaje, status)`. Nunca devuelvas un 500 por un caso previsible.
+- Validá toda entrada externa. Consultas SQL **siempre parametrizadas**.
+- No loguees contraseñas ni números de tarjeta. Guardá solo los últimos 4 dígitos.
+- No modifiques los tests para que pasen.

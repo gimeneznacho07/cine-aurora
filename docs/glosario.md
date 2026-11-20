@@ -1,0 +1,22 @@
+# Glosario
+
+- **Cartelera**: listado de películas que tienen al menos una función futura programada.
+- **Película**: obra con título, sinopsis, género, duración en minutos y clasificación por edad.
+- **Clasificación**: edad mínima para ver una película: ATP (0), +13, +16 o +18.
+- **Sala**: espacio físico con una grilla de butacas (filas con letras, columnas con números).
+- **Butaca**: asiento identificado por fila + columna (ej. `C7`).
+- **Butaca premium**: butaca de las 2 últimas filas de una sala; cuesta 25 % más.
+- **Función**: proyección de una película en una sala, a una fecha y hora, con formato (2D/3D) y precio base.
+- **Precio base**: precio de una entrada general en butaca común de una función.
+- **Reserva temporal**: bloqueo de butacas por 5 minutos a nombre de un usuario mientras completa la compra.
+- **Compra**: operación de pago que convierte una reserva en entradas.
+- **Entrada**: derecho a ocupar una butaca en una función; tiene código único, tipo, precio y estado.
+- **Tipo de entrada**: *general* (precio completo) o *reducida* (30 % menos).
+- **Estado de entrada**: *válida* (se puede usar), *usada* (ya se validó en puerta), *cancelada* (anulada).
+- **Cierre de venta**: momento (15 min antes del inicio) a partir del cual ya no se venden entradas online.
+- **Reembolso**: monto devuelto al cancelar: 100 %, 50 % o nada según la anticipación.
+- **Código de entrada**: identificador único `CA-XXXXXXXX` que se muestra al cliente y se valida en la puerta.
+- **Validación**: acto del personal de marcar una entrada como usada al ingreso.
+- **Limpieza**: 15 minutos de margen entre funciones de la misma sala.
+- **Bloqueo de cuenta**: pausa de 5 minutos tras 5 intentos fallidos de inicio de sesión.
+- **Administrador**: usuario del personal del cine con permisos de gestión.
