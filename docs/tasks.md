@@ -9,7 +9,7 @@ Estados: `[ ]` pendiente · `[x]` hecha.
 | N° | Estado | Título | Agente | Qué hacer | Cubre | Depende de | Terminado cuando |
 |----|--------|--------|--------|-----------|-------|------------|------------------|
 | T01 | [x] | Estructura del proyecto | Arquitecto | `package.json`, `.gitignore`, `.env.example`, carpetas, runner de tests | — | docs | `npm test` corre (aunque no haya tests) |
-| T02 | [ ] | Reglas puras de negocio | Backend | `reglas.js`: precios, descuentos, edad, cierre de venta, reembolso, solapamiento, Luhn | RN3, RN5–RN11, RN13, RN14 | T01 | Tests de límites pasan |
+| T02 | [x] | Reglas puras de negocio | Backend | `reglas.js`: precios, descuentos, edad, cierre de venta, reembolso, solapamiento, Luhn | RN3, RN5–RN11, RN13, RN14 | T01 | Tests de límites pasan |
 | T03 | [ ] | Base de datos y esquema | Backend | `db.js`: tablas, índice único parcial, transacciones; `errores.js` | RN1 | T01 | Test: la base rechaza butaca duplicada |
 | T04 | [ ] | Cuentas y sesión | Backend | Registro, login, hash, token, bloqueo por intentos, roles | RN15 · HU4, HU5 | T02, T03 | Tests de HU4/HU5 pasan |
 | T05 | [ ] | Cartelera, funciones y mapa de butacas | Backend | Servicios de lectura y siembra de datos de demo | RN1, RN2, RN5, RN16 · HU1–HU3 | T03 | Tests de HU1–HU3 pasan |
