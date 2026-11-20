@@ -1,0 +1,15 @@
+# Secretos: nunca se suben al repositorio
+.env
+.env.*
+!.env.example
+
+# Base de datos local
+backend/data/
+*.db
+*.db-shm
+*.db-wal
+
+# Dependencias y sistema
+node_modules/
+.DS_Store
+*.log

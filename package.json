@@ -1,0 +1,15 @@
+{
+  "name": "cine-aurora",
+  "version": "1.0.0",
+  "description": "Compra de entradas de cine online con elección de butaca (proyecto final)",
+  "private": true,
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning --env-file-if-exists=.env backend/server.js",
+    "test": "node --disable-warning=ExperimentalWarning --test \"backend/test/*.test.js\""
+  },
+  "engines": {
+    "node": ">=22.9"
+  },
+  "license": "UNLICENSED"
+}
