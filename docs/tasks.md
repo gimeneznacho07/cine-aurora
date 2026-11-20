@@ -16,7 +16,7 @@ Estados: `[ ]` pendiente · `[x]` hecha.
 | T06 | [x] | Reserva temporal de butacas | Backend | Reservar, vencer, liberar; una reserva por usuario | RN1–RN4, RN8, RN9 · HU6 | T04, T05 | Tests de HU6 pasan |
 | T07 | [x] | Compra y pago simulado | Backend | Comprar, precios, códigos, tarjeta | RN5–RN7, RN13, RN14 · HU7, HU8 | T06 | Tests de HU7/HU8 pasan |
 | T08 | [x] | Cancelación de entradas | Backend | Cancelar con reembolso 100/50/0 % | RN10 · HU9 | T07 | Tests de HU9 pasan |
-| T09 | [ ] | Administración: películas y funciones | Backend | Alta de películas, funciones sin solapamiento, cancelar función, baja de película | RN11, RN12, RN16 · HU10–HU12, HU15 | T07, T08 | Tests de HU10–HU12, HU15 pasan |
+| T09 | [x] | Administración: películas y funciones | Backend | Alta de películas, funciones sin solapamiento, cancelar función, baja de película | RN11, RN12, RN16 · HU10–HU12, HU15 | T07, T08 | Tests de HU10–HU12, HU15 pasan |
 | T10 | [ ] | Validación en puerta y reporte | Backend | Validar código, reporte de ocupación y recaudación | RN13 · HU13, HU14 | T09 | Tests de HU13/HU14 pasan |
 | T11 | [ ] | API HTTP, CORS y estáticos | Backend | Rutas, roles, errores uniformes, CORS, servidor | todas | T04–T10 | Tests HTTP de punta a punta pasan |
 | T12 | [ ] | Frontend base: cartelera, película, cuentas | Frontend | Router, helpers, estilos, login/registro | HU1, HU2, HU4, HU5 | T11 | Se navega y se ingresa desde el navegador |

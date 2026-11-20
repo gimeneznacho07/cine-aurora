@@ -4,6 +4,7 @@ const usuarios = require('./usuarios');
 const catalogo = require('./catalogo');
 const reservas = require('./reservas');
 const compras = require('./compras');
+const admin = require('./admin');
 
 /** Compone todos los casos de uso con las mismas dependencias (base de datos, reloj y secreto). */
 function crearServicios({ db, ahora = Date.now, secreto }) {
@@ -15,6 +16,7 @@ function crearServicios({ db, ahora = Date.now, secreto }) {
     ...catalogo(ctx),
     ...reservas(ctx),
     ...compras(ctx),
+    ...admin(ctx),
   };
 }
 
