@@ -18,7 +18,7 @@ Estados: `[ ]` pendiente · `[x]` hecha.
 | T08 | [x] | Cancelación de entradas | Backend | Cancelar con reembolso 100/50/0 % | RN10 · HU9 | T07 | Tests de HU9 pasan |
 | T09 | [x] | Administración: películas y funciones | Backend | Alta de películas, funciones sin solapamiento, cancelar función, baja de película | RN11, RN12, RN16 · HU10–HU12, HU15 | T07, T08 | Tests de HU10–HU12, HU15 pasan |
 | T10 | [x] | Validación en puerta y reporte | Backend | Validar código, reporte de ocupación y recaudación | RN13 · HU13, HU14 | T09 | Tests de HU13/HU14 pasan |
-| T11 | [ ] | API HTTP, CORS y estáticos | Backend | Rutas, roles, errores uniformes, CORS, servidor | todas | T04–T10 | Tests HTTP de punta a punta pasan |
+| T11 | [x] | API HTTP, CORS y estáticos | Backend | Rutas, roles, errores uniformes, CORS, servidor | todas | T04–T10 | Tests HTTP de punta a punta pasan |
 | T12 | [ ] | Frontend base: cartelera, película, cuentas | Frontend | Router, helpers, estilos, login/registro | HU1, HU2, HU4, HU5 | T11 | Se navega y se ingresa desde el navegador |
 | T13 | [ ] | Frontend: butacas, pago y mis entradas | Frontend | Mapa, reserva con cuenta regresiva, pago, entradas, cancelar | HU3, HU6–HU9 | T12 | Se compra y se cancela de punta a punta |
 | T14 | [ ] | Frontend: panel de administración | Frontend | Películas, funciones, validar, reporte | HU10–HU15 | T12 | Un admin puede hacer todo desde la web |
