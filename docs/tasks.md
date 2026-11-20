@@ -12,7 +12,7 @@ Estados: `[ ]` pendiente · `[x]` hecha.
 | T02 | [x] | Reglas puras de negocio | Backend | `reglas.js`: precios, descuentos, edad, cierre de venta, reembolso, solapamiento, Luhn | RN3, RN5–RN11, RN13, RN14 | T01 | Tests de límites pasan |
 | T03 | [x] | Base de datos y esquema | Backend | `db.js`: tablas, índice único parcial, transacciones; `errores.js` | RN1 | T01 | Test: la base rechaza butaca duplicada |
 | T04 | [x] | Cuentas y sesión | Backend | Registro, login, hash, token, bloqueo por intentos, roles | RN15 · HU4, HU5 | T02, T03 | Tests de HU4/HU5 pasan |
-| T05 | [ ] | Cartelera, funciones y mapa de butacas | Backend | Servicios de lectura y siembra de datos de demo | RN1, RN2, RN5, RN16 · HU1–HU3 | T03 | Tests de HU1–HU3 pasan |
+| T05 | [x] | Cartelera, funciones y mapa de butacas | Backend | Servicios de lectura y siembra de datos de demo | RN1, RN2, RN5, RN16 · HU1–HU3 | T03 | Tests de HU1–HU3 pasan |
 | T06 | [ ] | Reserva temporal de butacas | Backend | Reservar, vencer, liberar; una reserva por usuario | RN1–RN4, RN8, RN9 · HU6 | T04, T05 | Tests de HU6 pasan |
 | T07 | [ ] | Compra y pago simulado | Backend | Comprar, precios, códigos, tarjeta | RN5–RN7, RN13, RN14 · HU7, HU8 | T06 | Tests de HU7/HU8 pasan |
 | T08 | [ ] | Cancelación de entradas | Backend | Cancelar con reembolso 100/50/0 % | RN10 · HU9 | T07 | Tests de HU9 pasan |
